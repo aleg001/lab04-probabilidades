@@ -2,7 +2,6 @@
     Universidad del Valle de Guatemala
     Teoría de Probabilidades sección 10
     03/03/2022
-
     Miembros:
     Alejandro Gómez - 20347
     Diego Córdova - 20212
@@ -13,26 +12,18 @@
     ***************************************** """ 
 
 # Se definen imports
-from sympy import Symbol, exp, Interval
-from sympy.stats import P, density, cdf, FiniteRV, ContinuousRV
-import sympy as sy
+from sympy import*
+from sympy.stats import *
 
 # Imports para el título
 import time
 import sys
 
+X1 = [1,2,3,4,5,6,7,8]
 x = Symbol('X')
 pdf = exp(-x)
 #X1
-X1 = ContinuousRV()
-
-#X2
-
-X2 = ContinuousRV(x,pdf, set=Interval(8,10))
-
-
-# ----- Inciso k -----
-#3/4*Fx1 + 1/4Fx2
+#X1 = ContinuousRV()
 
 # --------------- Main -------------------
 
@@ -44,17 +35,36 @@ for i in Bienvenida:
     sys.stdout.flush()
     time.sleep(0.02)
 
-menu = 0
 
-dict_menu = {
-    #'1': EminemXD,
-    #'2': Ejercicio2,
-    #'3': bye,
-}
+#PARTE DE GABY
+# ----- Inciso D -----
+X = DiscreteUniform('X',X1)
+Fun_prob =density(X).dict
+print("d)",Fun_prob) 
 
-while menu != '3':
+# ----- Inciso E -----
+for i in Fun_prob.values():
+    acum=0
+    A_values=[]
+    while acum != 1:
+        ac= i + acum;
+        acum +=i
+        A_values.append(ac)
+A_dic=dict(zip(X1,A_values))
+print("e)",A_dic)
 
-    menu = input(
-        '\nIngrese una opcion\n1. Ejercicio 1\n2. Ejercicio 2\n3. Salir\n-> ')
-    accion = dict_menu[menu]
-    accion()
+
+#PARTE PAO
+# ----- Inciso I -----
+# Densidad
+x = Symbol("x")
+X2 = Uniform("x", 8, 10)
+d2 = density(X2)(x)
+print("i)", d2)
+
+# ----- Inciso J -----
+a2 = cdf(X2)(x)
+print("j)", a2)
+
+# ----- Inciso k -----
+#3/4*Fx1 + 1/4Fx2
