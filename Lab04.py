@@ -19,11 +19,25 @@ from sympy.stats import *
 import time
 import sys
 
-X1 = [1,2,3,4,5,6,7,8]
 x = Symbol('X')
-pdf = exp(-x)
-#X1
-#X1 = ContinuousRV()
+
+# ----- Diccionario para prints ----
+incisos = {
+    'a': '\na) P([X1 = 2])\n',
+    'b': '\nb) P([X1 > 2])\n',
+    'c': '\nc) P([X1 < 2])\n',
+    'd': '\nd) Funcion de probabilidad P([x1 = i]) para i E 1 - 8\n',
+    'e': '\ne) Funcion de distribucion acumulada F(x1)\n',
+    'f': '\nf) P([X2 = 9])\n',
+    'g': '\ng) P([X2 > 9])\n',
+    'h': '\nh) P([X2 < 9])\n',
+    'i': '\ni) Funcion densidad f(x2)\n',
+    'j': '\nj) Funcion de distribucion acumulada F(x2)\n',
+    'k': '\nk) Funcion de distribucion acumulada F(x3)\n',
+    'l': '\nl) P([x3 = 8])\n',
+    'm': '\nm) P([x3 > 8])\n',
+    'n': '\nn) P([x3 < 8])\n'
+}
 
 # --------------- Main -------------------
 
@@ -38,11 +52,12 @@ for i in Bienvenida:
 
 #PARTE DE GABY
 # ----- Inciso D -----
-X = DiscreteUniform('X',X1)
-Fun_prob =density(X).dict
-print("d)",Fun_prob) 
+X1 = DiscreteUniform('X',[1,2,3,4,5,6,7,8])
+Fun_prob =density(X1).dict
+print(incisos['d'], f'-> {Fun_prob}') 
 
 # ----- Inciso E -----
+'''
 for i in Fun_prob.values():
     acum=0
     A_values=[]
@@ -50,21 +65,44 @@ for i in Fun_prob.values():
         ac= i + acum;
         acum +=i
         A_values.append(ac)
-A_dic=dict(zip(X1,A_values))
-print("e)",A_dic)
+A_dic=dict(zip(x1,A_values))
+'''
+print(incisos['e'], f'-> {cdf(X1)}') 
 
 
 #PARTE PAO
 # ----- Inciso I -----
 # Densidad
-x = Symbol("x")
 X2 = Uniform("x", 8, 10)
 d2 = density(X2)(x)
-print("i)", d2)
+print(incisos['i'], f'-> {d2}') 
 
 # ----- Inciso J -----
 a2 = cdf(X2)(x)
-print("j)", a2)
+print(incisos['j'], f'-> {a2}') 
 
+# Parte Diego 
 # ----- Inciso k -----
-#3/4*Fx1 + 1/4Fx2
+cdf_x3 = '|' + str(cdf(X1)) + '\t, (1 < x <= 8)\n'
+cdf_x3 += ' |' + str(cdf(X2)) + '\t, (8 < x < 10)\n'
+print(incisos['k'], cdf_x3)
+
+# ----- Funcion para clcular probabilidad de x3 ----
+def prob_x3(operador:str, valor):
+    '''
+    Regresa la probabilidad de x3 valuado en valor y operado con el operador
+    Ejemplos: 
+        - prob_x3(>, 5) = P(x3 > 5)
+        - prob_x3(=, 3) = P(x3 = 3)
+    '''
+    
+    if operador == '=':
+        parte_x1 = 4/5 * (P(X1 <= valor) - P(X1 < valor))
+        parte_X2 = 1/5 * (P(X2 <= valor) - P(X2 < valor))
+        return parte_x1 + parte_X2
+        
+    elif operador == '<':
+        return (4/5 * P(X1 < 8)) + (1/5 * P(X2 < valor))
+
+    elif operador == '>':
+        return (4/5 * P(X1 > valor)) + (1/5 * P(X2 > valor))
