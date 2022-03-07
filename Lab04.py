@@ -95,11 +95,11 @@ fpdX3_1 = {
 }
 X3_1 = FiniteRV('X3_1', density=fpdX3_1);
 
-X3_2 = Piecewise((1/4, (8 < x) & (x < 10)), (0, True))
+X3_2 = Piecewise((1/8*x - 1/4, (8 < x) & (x < 10)), (0, True))
 
 cdf_x3 =  '(1 <= x <= 8)\n'
 cdf_x3 += str(cdf(X3_1))
-cdf_x3 +=  '\n(8 < x < 10)\n'
+cdf_x3 =  '\n(8 < x < 10)\n'
 cdf_x3 += str(X3_2)
 print(incisos['k'], cdf_x3)
 
@@ -122,3 +122,14 @@ def prob_x3(operador:str, valor):
 
     elif operador == '>':
         return P(X3_1 > valor) + (1/4 * P(X2 > valor))
+
+l = prob_x3('=', 8)
+print(incisos['l'], f'-> {l}')
+
+# Iniciso m: P([x3 > 8])
+m = prob_x3('>', 8)
+print(incisos['m'], f'-> {m}')
+
+# Iniciso n: P([x3 < 8])
+n = prob_x3('<', 8)
+print(incisos['n'], f'-> {n}')
