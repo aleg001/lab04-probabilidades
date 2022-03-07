@@ -83,8 +83,24 @@ print(incisos['j'], f'-> {a2}')
 
 # Parte Diego 
 # ----- Inciso k -----
-cdf_x3 = '|' + str(cdf(X1)) + '\t, (1 < x <= 8)\n'
-cdf_x3 += ' |' + str(cdf(X2)) + '\t, (8 < x < 10)\n'
+fpdX3_1 = {
+    1: 3/4 * 1/8,
+    2: 3/4 * 1/8,
+    3: 3/4 * 1/8,
+    4: 3/4 * 1/8,
+    5: 3/4 * 1/8,
+    6: 3/4 * 1/8,
+    7: 3/4 * 1/8,
+    8: 3/4 * 1/8
+}
+X3_1 = FiniteRV('X3_1', density=fpdX3_1);
+
+X3_2 = Piecewise((1/4, (8 < x) & (x < 10)), (0, True))
+
+cdf_x3 =  '(1 <= x <= 8)\n'
+cdf_x3 += str(cdf(X3_1))
+cdf_x3 +=  '\n(8 < x < 10)\n'
+cdf_x3 += str(X3_2)
 print(incisos['k'], cdf_x3)
 
 # ----- Funcion para clcular probabilidad de x3 ----
@@ -97,12 +113,12 @@ def prob_x3(operador:str, valor):
     '''
     
     if operador == '=':
-        parte_x1 = 4/5 * (P(X1 <= valor) - P(X1 < valor))
-        parte_X2 = 1/5 * (P(X2 <= valor) - P(X2 < valor))
+        parte_x1 = P(X3_1 <= valor) - P(X3_1 < valor)
+        parte_X2 = 1/4 * (P(X2 <= valor) - P(X2 < valor))
         return parte_x1 + parte_X2
         
     elif operador == '<':
-        return (4/5 * P(X1 < 8)) + (1/5 * P(X2 < valor))
+        return P(X3_1 < 8) + (1/4 * P(X2 < valor))
 
     elif operador == '>':
-        return (4/5 * P(X1 > valor)) + (1/5 * P(X2 > valor))
+        return P(X3_1 > valor) + (1/4 * P(X2 > valor))
