@@ -122,14 +122,3 @@ def prob_x3(operador:str, valor):
 
     elif operador == '>':
         return P(X3_1 > valor) + (1/4 * P(X2 > valor))
-
-l = prob_x3('=', 8)
-print(incisos['l'], f'-> {l}')
-
-# Iniciso m: P([x3 > 8])
-m = prob_x3('>', 8)
-print(incisos['m'], f'-> {m}')
-
-# Iniciso n: P([x3 < 8])
-n = prob_x3('<', 8)
-print(incisos['n'], f'-> {n}')
