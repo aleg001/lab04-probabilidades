@@ -99,7 +99,7 @@ X3_2 = Piecewise((1/8*x - 1/4, (8 < x) & (x < 10)), (0, True))
 
 cdf_x3 =  '(1 <= x <= 8)\n'
 cdf_x3 += str(cdf(X3_1))
-cdf_x3 =  '\n(8 < x < 10)\n'
+cdf_x3 +=  '\n(8 < x < 10)\n'
 cdf_x3 += str(X3_2)
 print(incisos['k'], cdf_x3)
 
