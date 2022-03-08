@@ -4,3 +4,4 @@
 ### Marco Jurado
 ### Paola Contreras
 ### Paola de Leon
+### Cristian Aguirre
