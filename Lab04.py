@@ -69,11 +69,25 @@ A_dic=dict(zip(x1,A_values))
 '''
 print(incisos['e'], f'-> {cdf(X1)}') 
 
+#PARTE DE CHRIS
+#-----------X2---------
+X2 = Uniform("x", 8, 10)
+
+#------ Inciso F ------
+Pf= P(X2<=9)-P(X2<9)
+print(incisos['f'], f'-> {Pf}')
+
+#------ Inciso G ------
+Pg= P(X2>9)
+print(incisos['g'], f'-> {Pg}')
+
+#------ Inciso H ------
+Ph= P(X2<9)
+print(incisos['h'], f'-> {Ph}')
 
 #PARTE PAO
 # ----- Inciso I -----
 # Densidad
-X2 = Uniform("x", 8, 10)
 d2 = density(X2)(x)
 print(incisos['i'], f'-> {d2}') 
 
