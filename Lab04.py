@@ -136,6 +136,7 @@ cdf_x3 += "\n(8 < x < 10)\n"
 cdf_x3 += str(X3_2)
 print(incisos["k"], cdf_x3)
 
+
 # ----- Funcion para clcular probabilidad de x3 ----
 def prob_x3(operador: str, valor):
     """
@@ -155,3 +156,19 @@ def prob_x3(operador: str, valor):
 
     elif operador == ">":
         return P(X3_1 > valor) + (1 / 4 * P(X2 > valor))
+
+
+# Parte Marco Jurado
+#----- Inciso l -----
+l = prob_x3('=',8) - prob_x3('=',7.999999999)
+print(incisos["l"], f"-> {l}")
+
+#----- Inciso m -----
+
+m = 1 - prob_x3('>',8)
+print(incisos["m"], f"-> {m}")
+
+#----- Inciso n -----
+
+n = prob_x3('<', 8) - (prob_x3('<',8) - prob_x3('<',7.999999999))
+print(incisos["n"], f"-> {n}")
